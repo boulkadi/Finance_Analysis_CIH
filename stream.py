@@ -1,65 +1,4 @@
-"""
-# Importation des bibliothèques nécessaires
-import streamlit as st
-import pandas as pd
-import plotly.express as px
-import plotly.graph_objects as go
 
-# Config de page
-st.set_page_config(page_title="Visualisation Risques Financiers", layout="wide")
-st.title("📊 Visualisation Interactive des Risques Financiers Pondérés (2013–2024)")
-
-# Chargement des données
-df = pd.read_csv("output/output_result1.csv")
-
-# Affichage des données
-st.subheader("🧾 Données Brutes")
-st.dataframe(df)
-
-# Sidebar : choix des indicateurs et filtre par année
-st.sidebar.header("🎛️ Options")
-indicateurs = df.columns[1:]
-selected_cols = st.sidebar.multiselect("Indicateurs à afficher :", indicateurs, default=indicateurs)
-
-min_year, max_year = int(df["Année"].min()), int(df["Année"].max())
-year_range = st.sidebar.slider("Plage d'années :", min_year, max_year, (min_year, max_year))
-df_filtered = df[(df["Année"] >= year_range[0]) & (df["Année"] <= year_range[1])]
-
-# Graphique 1 : Courbe interactive
-st.subheader("📈 Évolution Temporelle ")
-if selected_cols:
-    fig_line = px.line(df_filtered, x="Année", y=selected_cols,
-                       labels={"value": "Montant (MAD)", "variable": "Indicateur"},
-                       title="Évolution des risques financiers")
-    fig_line.update_traces(mode='lines+markers')
-    st.plotly_chart(fig_line, use_container_width=True)
-
-# Graphique 2 : Barres interactives
-st.subheader("📊 Comparaison par Année ")
-if selected_cols:
-    df_melt = df_filtered.melt(id_vars="Année", value_vars=selected_cols, var_name="Indicateur", value_name="Valeur")
-    fig_bar = px.bar(df_melt, x="Année", y="Valeur", color="Indicateur", barmode="group")
-    st.plotly_chart(fig_bar, use_container_width=True)
-
-# Graphique 3 : Aires empilées interactives
-st.subheader("📐 Aires empilées")
-if selected_cols:
-    fig_area = go.Figure()
-    for col in selected_cols:
-        fig_area.add_trace(go.Scatter(x=df_filtered["Année"], y=df_filtered[col],
-                                      stackgroup='one', name=col, mode='lines'))
-    fig_area.update_layout(title="Répartition des Risques par Année", yaxis_title="Montant (MAD)")
-    st.plotly_chart(fig_area, use_container_width=True)
-
-# Graphique 4 : Camembert pour une année
-st.subheader(" Camembert Interactif pour une Année")
-year_selected = st.selectbox("Choisis une année :", df_filtered["Année"])
-row = df[df["Année"] == year_selected][selected_cols].iloc[0]
-fig_pie = px.pie(values=row.values, names=selected_cols,
-                 title=f"Répartition des Risques en {year_selected}",
-                 hole=0.3)
-st.plotly_chart(fig_pie, use_container_width=True)
-"""
 import os
 import streamlit as st
 import pandas as pd
@@ -76,7 +15,7 @@ from dotenv import load_dotenv
 
 # Charger les variables d'environnement
 load_dotenv()
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+GOOGLE_API_KEY = st.secrets["GOOGLE_API_KEY"]
 
 if not GOOGLE_API_KEY:
     raise ValueError("GOOGLE_API_KEY not set in environment variables")
