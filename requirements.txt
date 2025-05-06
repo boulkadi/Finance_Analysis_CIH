@@ -1,0 +1,30 @@
+# Core LLM + PDF processing
+google-generativeai>=0.3.0
+python-dotenv
+pymupdf  # fitz
+streamlit
+plotly
+
+# LangChain core modules
+langchain
+langchain-community
+langchain-huggingface
+langchain-google-genai
+langchain_ollama  # si tu réutilises Ollama localement
+huggingface_hub[hf_xet]
+hf_xet
+
+# Vector store
+faiss-cpu  # Pour la version CPU de FAISS, sinon remplacer par faiss-gpu
+
+# Embeddings
+sentence-transformers
+
+# Utilitaires
+huggingface-hub
+numpy
+pandas
+scikit-learn
+
+# Pour la sauvegarde CSV
+markdown

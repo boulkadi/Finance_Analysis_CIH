@@ -1,0 +1,5 @@
+# Ignorer le répertoire de l'environnement virtuel
+venv/
+
+# Ignorer le fichier .env contenant des variables sensibles
+.env
