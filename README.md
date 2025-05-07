@@ -4,6 +4,8 @@
 
 Le projet *Finance_Analysis_CIH* fournit une solution d'analyse financière interactive pour les données provenant de la Banque CIH. Il permet de traiter des rapports financiers au format PDF, d'analyser les données, et de présenter les résultats sous forme de visualisations interactives avec Streamlit. Il intègre également des outils d'IA avancés pour aider à l'analyse contextuelle des rapports financiers à l'aide de LangChain et d'autres technologies de traitement de texte.
 
+![photo_2025-05-07_15-19-00](https://github.com/user-attachments/assets/8b18e5e9-43f4-486d-8d9b-81ee93ddfd31)
+
 ## 🚀 Objectifs
 
 - **Extraire et analyser des données financières** : Le projet permet de scraper, nettoyer et analyser les données financières contenues dans les rapports de la Banque CIH.
